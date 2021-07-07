@@ -34,7 +34,11 @@ tfidf = idf.transform(tf)
 
 # First, let's figure out what hash value "Gettysburg" maps to by finding the
 # index a sparse vector from HashingTF gives us back:
-gettysburgTF = hashingTF.transform(["Gettysburg"])
+
+search_key = "Godwin"
+
+gettysburgTF = hashingTF.transform([search_key])
+print(gettysburgTF.indices[0])
 gettysburgHashValue = int(gettysburgTF.indices[0])
 
 # Now we will extract the TF*IDF score for Gettsyburg's hash value into
@@ -45,5 +49,5 @@ gettysburgRelevance = tfidf.map(lambda x: x[gettysburgHashValue])
 zippedResults = gettysburgRelevance.zip(documentNames)
 
 # And, print the document with the maximum TF*IDF value:
-print("Best document for Gettysburg is:")
+print(f"Best document for {search_key} is:")
 print(zippedResults.max())
